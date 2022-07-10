@@ -1,6 +1,6 @@
 VirusMachineSimulator
 ---------------------
-## [Commputing with viruses](https://www.sciencedirect.com/science/article/pii/S0304397515011457)
+## [Computing with viruses](https://www.sciencedirect.com/science/article/pii/S0304397515011457)
 ---------------------
 ## Instrucciones para la ejecución desde el entorno de desarrollo
 
