@@ -26,13 +26,16 @@ class Host():
 
 
 class Instruction():
-    def __init__(self, id, condition):
+    def __init__(self, id, first, condition, second, channels):
         self.id = id
         #options: 'INSTRUCTION', 'stop'
+        self.first = first
         self.condition = condition
+        self.second = second
+        self.channels = channels
 
     def __str__(self):
-        return f'Instruction({self.id}, condition:{self.condition})'
+        return f'Instruction({self.id}, condition:{self.first + " " + self.condition + " " + self.second})'
 
 
 class Controller():
