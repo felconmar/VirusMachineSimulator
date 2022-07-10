@@ -36,12 +36,3 @@ class Instruction():
 
     def __str__(self):
         return f'Instruction({self.id}, condition:{self.first + " " + self.condition + " " + self.second})'
-
-
-class Controller():
-    def __init__(self, instruction, channel):
-        self.instruction = instruction
-        self.channel = channel
-
-    def __str__(self):
-        return f'Controller(instruction:{self.instruction}, channel:{self.channel})'
