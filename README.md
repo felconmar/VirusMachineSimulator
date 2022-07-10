@@ -16,9 +16,9 @@ Para la ejecución seguir los siguientes pasos:
      `h1 = Host("h1", 5)`
 
 
-* Instrucciones: tienen un id, primer host, condición y segundo host soportado por el simulador.
+* Instrucciones: tienen un id, primer host, condición, segundo host y canales que se abren cuando la instrucción se cumple.
 
-    `i1 = Instruction("i1", "h1", "bigger than", "h2)`
+    `i1 = Instruction("i1", "h1", "bigger than", "h2", ["ch1"])`
 
     Las condiciones soportadas actualmente son las siguientes:
 
