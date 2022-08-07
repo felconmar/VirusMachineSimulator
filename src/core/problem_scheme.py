@@ -3,6 +3,8 @@ from core.data_structure import *
 import random
 import logging
 import jsonpickle
+import json
+
 
 
 class Problem():
@@ -23,12 +25,28 @@ class Problem():
     def virus_in_environment(self):
         return self.hosts["h0"].virus
 
-    #TODO
     def json_dump(self):
-        return 0 #jsonpickle.encode(self.__dict__)
-    #TODO
-    def json_decode(json_pickle):
-        return 0
+        return jsonpickle.dumps(self.__dict__)
+    #Used for loading from string
+    def json_decode(pr_json):
+        pr_json_aux = json.loads(pr_json)
+        hosts_aux = {h_str["id"]:Host(h_str["id"], int(h_str["virus"])) \
+            for h_str in pr_json_aux["hosts"].values()}
+        instructions_aux = {i_str["id"]:Instruction(i_str["id"], i_str["first"], i_str["condition"], i_str["second"], i_str["channels"]) \
+            for i_str in pr_json_aux["instructions"].values()}
+        channels_aux = {c_str["id"]:Channel(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
+            for c_str in pr_json_aux["channels"].values()}
+        return Problem(hosts_aux, instructions_aux, channels_aux)
+    #Used for loading from file
+    def json_decode_f(pr_json):
+        pr_json_aux = json.load(pr_json)
+        hosts_aux = {h_str["id"]:Host(h_str["id"], int(h_str["virus"])) \
+            for h_str in pr_json_aux["hosts"].values()}
+        instructions_aux = {i_str["id"]:Instruction(i_str["id"], i_str["first"], i_str["condition"], i_str["second"], \
+            i_str["channels"]) for i_str in pr_json_aux["instructions"].values()}
+        channels_aux = {c_str["id"]:Channel(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
+            for c_str in pr_json_aux["channels"].values()}
+        return Problem(hosts_aux, instructions_aux, channels_aux)
 
     virus_transmission = 1
 

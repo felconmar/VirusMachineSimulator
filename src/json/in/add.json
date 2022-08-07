@@ -1,0 +1,93 @@
+{
+    "hosts": {
+        "h1": {
+            "py/object": "core.data_structure.Host",
+            "id": "h1",
+            "virus": 5
+        },
+        "h2": {
+            "py/object": "core.data_structure.Host",
+            "id": "h2",
+            "virus": 5
+        },
+        "h0": {
+            "py/object": "core.data_structure.Host",
+            "id": "h0",
+            "virus": 0
+        }
+    },
+    "channels": {
+        "ch1": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch1",
+            "origin": "h1",
+            "to": "h0",
+            "weight": 1
+        },
+        "ch2": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch2",
+            "origin": "h2",
+            "to": "h0",
+            "weight": 1
+        },
+        "ch3": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch3",
+            "origin": "i1",
+            "to": "i1",
+            "weight": 2
+        },
+        "ch4": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch4",
+            "origin": "i1",
+            "to": "i2",
+            "weight": 1
+        },
+        "ch5": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch5",
+            "origin": "i2",
+            "to": "i2",
+            "weight": 2
+        },
+        "ch6": {
+            "py/object": "core.data_structure.Channel",
+            "id": "ch6",
+            "origin": "i2",
+            "to": "i3",
+            "weight": 1
+        }
+    },
+    "instructions": {
+        "i1": {
+            "py/object": "core.data_structure.Instruction",
+            "id": "i1",
+            "first": "h1",
+            "condition": "not empty",
+            "second": "-",
+            "channels": [
+                "ch1"
+            ]
+        },
+        "i2": {
+            "py/object": "core.data_structure.Instruction",
+            "id": "i2",
+            "first": "h2",
+            "condition": "not empty",
+            "second": "-",
+            "channels": [
+                "ch2"
+            ]
+        },
+        "i3": {
+            "py/object": "core.data_structure.Instruction",
+            "id": "i3",
+            "first": "-",
+            "condition": "stop",
+            "second": "-",
+            "channels": []
+        }
+    }
+}

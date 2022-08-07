@@ -1,4 +1,8 @@
 from core import *
+import json
+import jsonpickle
+
+from core import problem_scheme
 
 #Grupo de hosts
 h0 = Host("h0", 0)
@@ -23,13 +27,21 @@ hosts = {"h1" : h1, "h2" : h2, "h0" : h0}
 instructions = {"i1" : i1, "i2" : i2, "i3" : i3}
 channels = {"ch1" : ch1, "ch2" : ch2, "ch3" : ch3, "ch4" : ch4, "ch5" : ch5, "ch6" : ch6}
 
+
 #Carga del problema
 pr1 = Problem(hosts, instructions, channels)
 #Ejecución del problema
 pr1.run()
-
 print('\nSolution: ' ,pr1.virus_in_environment(), '\n')
 
 
+pr1_encode = pr1.json_dump()
 
+pr1_copy = Problem.json_decode(pr1_encode)
+#pr1_copy.run()
+#print(pr1_copy.virus_in_environment())
 
+add_json = open("src/json/in/add.json")
+pr1_f_copy = Problem.json_decode_f(add_json)
+#pr1_f_copy.run()
+#print(pr1_f_copy.virus_in_environment())
