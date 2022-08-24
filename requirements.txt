@@ -17,6 +17,7 @@ networkx==2.8.6
 numpy==1.23.2
 packaging==21.3
 Pillow==9.2.0
+pydot==1.4.2
 Pygments==2.13.0
 pyparsing==3.0.9
 pypiwin32==223
