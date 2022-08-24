@@ -8,16 +8,16 @@ import json
 
 
 class Problem():
-    def __init__(self, hosts, instructions, channels, ):
+    def __init__(self, hosts, instructions, edges, ):
         self.hosts = hosts
-        self.channels = channels
+        self.edges = edges
         self.instructions = instructions
 
     def get_hosts(self):
         return self.hosts
 
-    def get_channels(self):
-        return self.channels
+    def get_edges(self):
+        return self.edges
 
     def get_instructions(self):
         return self.instructions
@@ -27,26 +27,28 @@ class Problem():
 
     def json_dump(self):
         return jsonpickle.dumps(self.__dict__)
+        
     #Used for loading from string
     def json_decode(pr_json):
         pr_json_aux = json.loads(pr_json)
         hosts_aux = {h_str["id"]:Host(h_str["id"], int(h_str["virus"])) \
             for h_str in pr_json_aux["hosts"].values()}
-        instructions_aux = {i_str["id"]:Instruction(i_str["id"], i_str["first"], i_str["condition"], i_str["second"], i_str["channels"]) \
+        instructions_aux = {i_str["id"]:Instruction(i_str["id"], i_str["first"], i_str["condition"], i_str["second"], i_str["edges"]) \
             for i_str in pr_json_aux["instructions"].values()}
-        channels_aux = {c_str["id"]:Channel(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
-            for c_str in pr_json_aux["channels"].values()}
-        return Problem(hosts_aux, instructions_aux, channels_aux)
+        edges_aux = {c_str["id"]:Edge(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
+            for c_str in pr_json_aux["edges"].values()}
+        return Problem(hosts_aux, instructions_aux, edges_aux)
+
     #Used for loading from file
     def json_decode_f(pr_json):
         pr_json_aux = json.load(pr_json)
         hosts_aux = {h_str["id"]:Host(h_str["id"], int(h_str["virus"])) \
             for h_str in pr_json_aux["hosts"].values()}
         instructions_aux = {i_str["id"]:Instruction(i_str["id"], i_str["first"], i_str["condition"], i_str["second"], \
-            i_str["channels"]) for i_str in pr_json_aux["instructions"].values()}
-        channels_aux = {c_str["id"]:Channel(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
-            for c_str in pr_json_aux["channels"].values()}
-        return Problem(hosts_aux, instructions_aux, channels_aux)
+            i_str["edges"]) for i_str in pr_json_aux["instructions"].values()}
+        edges_aux = {c_str["id"]:Edge(c_str["id"], c_str["origin"], c_str["to"], int(c_str["weight"])) \
+            for c_str in pr_json_aux["edges"].values()}
+        return Problem(hosts_aux, instructions_aux, edges_aux)
 
     virus_transmission = 1
 
@@ -88,9 +90,17 @@ class Problem():
     'equals' : follow_process_equals,                     
     'not equals' : follow_process_not_equals,
     }
-
     
-    def run(self):
+    def run_iterative(self):
+        instruction = self.instructions["i1"]
+        while(instruction.condition != "stop"):
+            edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction.id]
+            edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
+            instr_edge_id = self.apply(instruction, edges_sorted)
+            instruction = self.instructions[instr_edge_id.to]    
+        return self
+    
+    def run_R(self):
         return self.run_recursive("i1")
 
     
@@ -102,11 +112,11 @@ class Problem():
             return self
         else:    
             #Preparar los canales posibles de la instrucción
-            #channels = list(filter(lambda channel: channel.origin == instruction_id, self.channels))
-            channels_sorted = [v for k, v in self.channels.items() if v.origin == instruction_id]
-            channels_sorted.sort(key=lambda channel: channel.weight, reverse=True)
-            instr_channel_id = self.apply(instruction, channels_sorted)
-            return self.run_recursive(instr_channel_id.to)
+            #edges = list(filter(lambda edge: edge.origin == instruction_id, self.edges))
+            edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction_id]
+            edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
+            instr_edge_id = self.apply(instruction, edges_sorted)
+            return self.run_recursive(instr_edge_id.to)
 
         
     def run_recursive_2(self, instruction_id):
@@ -117,11 +127,11 @@ class Problem():
             return self
         else:
             #Preparar los canales posibles de la instrucción
-            #channels = list(filter(lambda channel: channel.origin == instruction_id, self.channels))
-            channels_sorted = [v for k, v in self.channels.items() if v.origin == instruction_id]
-            channels_sorted.sort(key=lambda channel: channel.weight, reverse=True)
-            instr_channel_id = self.apply_2(instruction, channels_sorted)
-            return self.run_recursive_2(instr_channel_id.to)
+            #edges = list(filter(lambda edge: edge.origin == instruction_id, self.edges))
+            edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction_id]
+            edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
+            instr_edge_id = self.apply_2(instruction, edges_sorted)
+            return self.run_recursive_2(instr_edge_id.to)
 
 
     '''
@@ -134,32 +144,32 @@ class Problem():
     --------------------
     -divisibilidad (%)
     '''
-    def apply(self, instruction, channels):
+    def apply(self, instruction, edges):
         #controllers = [c for c in self.controllers if c.instruction.id == instruction_id]
-        hosts_channels = instruction.channels
-        for h_ch in hosts_channels:
-            h_channel = self.channels[h_ch]
-            from_host = self.hosts[h_channel.origin]
-            to_host = self.hosts[h_channel.to]
+        hosts_edges = instruction.edges
+        for h_ch in hosts_edges:
+            h_edge = self.edges[h_ch]
+            from_host = self.hosts[h_edge.origin]
+            to_host = self.hosts[h_edge.to]
             try:
                 run_method = self.instruction_function_dict[instruction.condition]
                 if from_host.virus == 0:
-                    return channels[len(channels)-1]
+                    return edges[len(edges)-1]
                 elif run_method(self, instruction):
                     from_host.setVirus(from_host.virus-1)
-                    channel_weight = h_channel.weight
-                    to_host.setVirus(to_host.virus + (channel_weight * self.virus_transmission))
-                return channels[0]
+                    edge_weight = h_edge.weight
+                    to_host.setVirus(to_host.virus + (edge_weight * self.virus_transmission))
+                return edges[0]
             except KeyError:
                 print("Check the format of the instruction's condition -> " + instruction)
 
         else:
             return "ERROR"
 
-    def apply_2(self, instruction, channels):
+    def apply_2(self, instruction, edges):
         try:        
             run_method = self.instruction_function_dict[instruction.condition]
-            return run_method(self, instruction, channels)
+            return run_method(self, instruction, edges)
         except KeyError:
             print("Check the format of the instruction's condition -> " + instruction)
 

@@ -1,0 +1,148 @@
+{
+    "hosts": {
+        "h1": {
+            "id": "h1",
+            "virus": 20
+        },
+        "h2": {
+            "id": "h2",
+            "virus": 5
+        },
+        "h3": {
+            "id": "h3",
+            "virus": 0
+        },
+        "h4": {
+            "id": "h4",
+            "virus": 0
+        },
+        "h0": {
+            "id": "h0",
+            "virus": 0
+        }
+    },
+    "edges": {
+        "e1": {
+            "description": "Canal del host h2 al host h4",
+            "id": "e1",
+            "origin": "h2",
+            "to": "h4",
+            "weight": 1
+        },
+        "e2": {
+            "description": "Canal del host h1 al host h3",
+            "id": "e2",
+            "origin": "h1",
+            "to": "h3",
+            "weight": 1
+        },
+        "e3": {
+            "description": "Canal del host h3 al ambiente",
+            "id": "e3",
+            "origin": "h3",
+            "to": "h0",
+            "weight": 1
+        },
+        "e4": {
+            "description": "Canal del host h4 al host h2",
+            "id": "e4",
+            "origin": "h4",
+            "to": "h2",
+            "weight": 1
+        },
+        "e5": {
+            "description": "Arco de la instrucción i1 a la instrucción i2",
+            "id": "e5",
+            "origin": "i1",
+            "to": "i2",
+            "weight": 2
+        },
+        "e6": {
+            "description": "Arco de la instrucción i1 a la instrucción i3",
+            "id": "e6",
+            "origin": "i1",
+            "to": "i3",
+            "weight": 1
+        },
+        "e7": {
+            "description": "Arco de la instrucción i2 a la instrucción i1",
+            "id": "e7",
+            "origin": "i2",
+            "to": "i1",
+            "weight": 2
+        },
+        "e8": {
+            "description": "Arco de la instrucción i2 a la instrucción i5",
+            "id": "e8",
+            "origin": "i2",
+            "to": "i5",
+            "weight": 1
+        },
+        "e9": {
+            "description": "Arco de la instrucción i3 a la instrucción i4",
+            "id": "e9",
+            "origin": "i3",
+            "to": "i4",
+            "weight": 1
+        },
+        "e10": {
+            "description": "Bucle de la instrucción i4",
+            "id": "e10",
+            "origin": "i4",
+            "to": "i4",
+            "weight": 2
+        },
+        "e11": {
+            "description": "Arco de la instrucción i4 a la instrucción i1",
+            "id": "e11",
+            "origin": "i4",
+            "to": "i1",
+            "weight": 1
+        }
+    },
+    "instructions": {
+        "i1": {
+            "id": "i1",
+            "first": "h2",
+            "condition": "not empty",
+            "second": "-",
+            "edges": [
+                "e1"
+            ]
+        },
+        "i2": {
+            "id": "i2",
+            "first": "h1",
+            "condition": "not empty",
+            "second": "-",
+            "edges": [
+                "e2"
+            ]
+        },
+        "i3": {
+            "id": "i3",
+            "first": "h3",
+            "condition": "not empty",
+            "second": "-",
+            "edges": [
+                "e3"
+            ]
+        },
+        "i4": {
+            "id": "i4",
+            "first": "h4",
+            "condition": "not empty",
+            "second": "-",
+            "edges": [
+                "e4"
+            ]
+        },
+        "i5": {
+            "id": "i5",
+            "first": "-",
+            "condition": "stop",
+            "second": "-",
+            "edges": []
+        }
+    }
+}

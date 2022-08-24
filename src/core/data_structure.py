@@ -1,7 +1,7 @@
 from importlib.resources import contents
 
 
-class Channel():
+class Edge():
     def __init__(self, id, origin, to, weight):
         self.id = id
         self.origin = origin
@@ -9,8 +9,7 @@ class Channel():
         self.weight = weight
 
     def __str__(self):
-        return f'Channel({self.id}, origin:{self.origin}, to:{self.to}, weight:{self.weight})'
-
+        return f'Edge({self.id}, origin:{self.origin}, to:{self.to}, weight:{self.weight})'
 
 
 class Host():
@@ -26,13 +25,13 @@ class Host():
 
 
 class Instruction():
-    def __init__(self, id, first, condition, second, channels):
+    def __init__(self, id, first, condition, second, edges):
         self.id = id
         #options: 'INSTRUCTION', 'stop'
         self.first = first
         self.condition = condition
         self.second = second
-        self.channels = channels
+        self.edges = edges
 
     def __str__(self):
         return f'Instruction({self.id}, condition:{self.first + " " + self.condition + " " + self.second})'

@@ -2,7 +2,7 @@
 
 # dependencies
 __pycache__
-
+.venv
 # testing
 
 

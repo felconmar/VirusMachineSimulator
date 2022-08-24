@@ -1,0 +1,40 @@
+
+<Machine>:
+    rows:4
+
+    BoxLayout:
+        id: graph
+
+
+    Label:
+        id:filepath
+        text: ""
+        size_hint_y: .1
+
+
+    Button:
+        text: "RUN"
+        on_release: root.run(filepath.text)
+        size_hint_y: .1
+
+
+    Label:
+        id:solution
+        text: ""
+        size_hint_y: .1
+
+
+
+
+
+<Window>:
+    cols:2
+    id:my_widget
+
+    FileChooserIconView:
+        id:filechooser
+        on_selection:machine.selected(filechooser.selection)
+
+    Machine:
+        id:machine
+
