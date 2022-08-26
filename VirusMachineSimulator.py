@@ -1,7 +1,6 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from src.core.problem_scheme import *
-import os
 import matplotlib.pyplot as plt
 import networkx as nx
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivy  #https://stackoverflow.com/questions/54758416/how-to-fix-modulenotfounderror-kivy-garden-matplotlib-backend-kivyagg
