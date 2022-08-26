@@ -1,8 +1,6 @@
-from random import seed
-from turtle import color
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
-from core import *
+from src.core.problem_scheme import *
 import os
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -69,12 +67,12 @@ class Machine(GridLayout):
         except:
             self.ids.graph.add_widget(Image(source ="src/resources/sorry.png"))
 
-class Vm_problem_ui(App):
+class VirusMachineSimulator(App):
     def build(self):
         return Window()
 
 
 
 if __name__ == "__main__":
-    window = Vm_problem_ui()
+    window = VirusMachineSimulator()
     window.run()

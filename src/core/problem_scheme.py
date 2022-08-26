@@ -1,4 +1,4 @@
-from core.data_structure import *
+from data_structure import *
 #from core.condition_dictionary import *
 import random
 import logging
