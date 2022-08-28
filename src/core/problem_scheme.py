@@ -118,32 +118,7 @@ class Problem():
             instr_edge_id = self.apply(instruction, edges_sorted)
             return self.run_recursive(instr_edge_id.to)
 
-        
-    def run_recursive_2(self, instruction_id):
-        #Preparar la condición de la instrucción
-        instruction = self.instructions[instruction_id]
-        condition = instruction.condition
-        if condition == "stop":
-            return self
-        else:
-            #Preparar los canales posibles de la instrucción
-            #edges = list(filter(lambda edge: edge.origin == instruction_id, self.edges))
-            edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction_id]
-            edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
-            instr_edge_id = self.apply_2(instruction, edges_sorted)
-            return self.run_recursive_2(instr_edge_id.to)
 
-
-    '''
-    -not empty
-	-empty
-	-bigger than n
-	-smaller than
-	-equals
-	-not equals
-    --------------------
-    -divisibilidad (%)
-    '''
     def apply(self, instruction, edges):
         #controllers = [c for c in self.controllers if c.instruction.id == instruction_id]
         hosts_edges = instruction.edges
@@ -153,7 +128,7 @@ class Problem():
             to_host = self.hosts[h_edge.to]
             try:
                 run_method = self.instruction_function_dict[instruction.condition]
-                if from_host.virus == 0:
+                if from_host.virus == 0 or not run_method(self, instruction):
                     return edges[len(edges)-1]
                 elif run_method(self, instruction):
                     from_host.setVirus(from_host.virus-1)
@@ -165,13 +140,6 @@ class Problem():
 
         else:
             return "ERROR"
-
-    def apply_2(self, instruction, edges):
-        try:        
-            run_method = self.instruction_function_dict[instruction.condition]
-            return run_method(self, instruction, edges)
-        except KeyError:
-            print("Check the format of the instruction's condition -> " + instruction)
 
 
             
