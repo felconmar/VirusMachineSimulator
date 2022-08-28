@@ -94,8 +94,10 @@ class Problem():
     def run_iterative(self):
         instruction = self.instructions["i1"]
         while(instruction.condition != "stop"):
+            #Neighbour edges of the instruction
             edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction.id]
             edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
+            #Check condition and process necessary operations
             instr_edge_id = self.apply(instruction, edges_sorted)
             instruction = self.instructions[instr_edge_id.to]    
         return self
@@ -105,22 +107,25 @@ class Problem():
 
     
     def run_R(self, instruction_id):
-        #Preparar la condición de la instrucción
         instruction = self.instructions[instruction_id]
         condition = instruction.condition
         if condition == "stop":
             return self
         else:    
-            #Preparar los canales posibles de la instrucción
-            #edges = list(filter(lambda edge: edge.origin == instruction_id, self.edges))
+            #Neighbour edges of the instruction
             edges_sorted = [v for k, v in self.edges.items() if v.origin == instruction_id]
             edges_sorted.sort(key=lambda edge: edge.weight, reverse=True)
+            #Check condition and process necessary operations
             instr_edge_id = self.apply(instruction, edges_sorted)
             return self.run_recursive(instr_edge_id.to)
 
-
+    '''
+    This method checks if the condition of the instruction is true. In case it is, it proceeds
+    and opens the necessary channels (with all the operations that implies). Then, returns the 
+    first object from "edges", the edge with the most weight. If there aren't enough virus on 
+    the host or the instructions isn't met, the method returns the edge with the least weight.
+    '''
     def apply(self, instruction, edges):
-        #controllers = [c for c in self.controllers if c.instruction.id == instruction_id]
         hosts_edges = instruction.edges
         for h_ch in hosts_edges:
             h_edge = self.edges[h_ch]
@@ -134,12 +139,10 @@ class Problem():
                     from_host.setVirus(from_host.virus-1)
                     edge_weight = h_edge.weight
                     to_host.setVirus(to_host.virus + (edge_weight * self.virus_transmission))
-                return edges[0]
+                    return edges[0]
             except KeyError:
                 print("Check the format of the instruction's condition -> " + instruction)
 
-        else:
-            return "ERROR"
-
-
+        
             
+                
