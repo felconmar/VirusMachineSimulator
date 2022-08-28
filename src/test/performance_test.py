@@ -2,7 +2,6 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from core import data_structure, problem_scheme
-sys.setrecursionlimit(5000)
 
 add_setup_pr_str = '''
 import sys
@@ -132,49 +131,49 @@ num_repetions = 3
 duration = timeit.Timer(stmt=add_run_pr_str, setup=add_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=add_run_pr_str, setup=add_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the add problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the add problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 
 duration = timeit.Timer(stmt=add_complex_run_pr_str, setup=add_complex_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=add_complex_run_pr_str, setup=add_complex_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the add_complex problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the add_complex problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 #mult
 duration = timeit.Timer(stmt=mult_run_pr_str, setup=mult_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=mult_run_pr_str, setup=mult_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the mult problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the mult problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 
 duration = timeit.Timer(stmt=mult_complex_run_pr_str, setup=mult_complex_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=mult_complex_run_pr_str, setup=mult_complex_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the mult_complex problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the mult_complex problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 #quot
 duration = timeit.Timer(stmt=quot_run_pr_str, setup=quot_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=quot_run_pr_str, setup=quot_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the quot problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the quot problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 
 duration = timeit.Timer(stmt=quot_complex_run_pr_str, setup=quot_complex_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=quot_complex_run_pr_str, setup=quot_complex_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the quot_complex problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the quot_complex problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 #rem
 duration = timeit.Timer(stmt=rem_run_pr_str, setup=rem_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=rem_run_pr_str, setup=rem_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the rem problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the rem problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 
 duration = timeit.Timer(stmt=rem_complex_run_pr_str, setup=rem_complex_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=rem_complex_run_pr_str, setup=rem_complex_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the rem_complex problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the rem_complex problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 #sub
 duration = timeit.Timer(stmt=sub_run_pr_str, setup=sub_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=sub_run_pr_str, setup=sub_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the sub problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the sub problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
 
 duration = timeit.Timer(stmt=sub_complex_run_pr_str, setup=sub_complex_setup_pr_str).timeit(number = num_runs)
 ex_time = timeit.Timer(stmt=sub_complex_run_pr_str, setup=sub_complex_setup_pr_str).repeat(repeat=num_repetions, number =num_runs)
 avg_duration = duration/num_runs
-print(f'On average the sub_complex problem took {np.divide(ex_time,num_runs)} seconds')
+print(f'On average the sub_complex problem took {np.sum(np.divide(ex_time,num_runs))/num_repetions} seconds')
