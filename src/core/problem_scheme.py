@@ -100,11 +100,11 @@ class Problem():
             instruction = self.instructions[instr_edge_id.to]    
         return self
     
-    def run_R(self):
-        return self.run_recursive("i1")
+    def run_recursive(self):
+        return self.run_R("i1")
 
     
-    def run_recursive(self, instruction_id):
+    def run_R(self, instruction_id):
         #Preparar la condición de la instrucción
         instruction = self.instructions[instruction_id]
         condition = instruction.condition
