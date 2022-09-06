@@ -16,6 +16,8 @@ class Problem():
     def get_hosts(self):
         return self.hosts
 
+    def set_hosts(self, hosts):
+        self.hosts = hosts
     def get_edges(self):
         return self.edges
 
@@ -56,31 +58,31 @@ class Problem():
 
     def follow_process_not_empty(self, instruction):
         first_host = self.hosts[instruction.first]
-        return True if first_host.virus > 0 else False
+        return first_host.virus > 0
         
     def follow_process_empty(self, instruction):
         first_host = self.hosts[instruction.first]
-        return True if first_host.virus == 0 else False
+        return first_host.virus == 0
 
     def follow_bigger_than(self, instruction):
         first_host = self.hosts[instruction.first]
         second_host = self.hosts[instruction.second]
-        return True if first_host.virus > second_host.virus else False
+        return first_host.virus > second_host.virus
 
     def follow_smaller_than(self, instruction):
         first_host = self.hosts[instruction.first]
         second_host = self.hosts[instruction.second]
-        return True if first_host.virus < second_host.virus else False
+        return first_host.virus < second_host.virus
 
     def follow_process_equals(self, instruction):
         first_host = self.hosts[instruction.first]
         second_host = self.hosts[instruction.second]
-        return True if first_host.virus == second_host.virus else False
+        return first_host.virus == second_host.virus
 
     def follow_process_not_equals(self, instruction):
         first_host = self.hosts[instruction.first]
         second_host = self.hosts[instruction.second]
-        return True if first_host.virus != second_host.virus else False
+        return first_host.virus != second_host.virus
 
     instruction_function_dict = \
     {'not empty' : follow_process_not_empty,
@@ -136,9 +138,9 @@ class Problem():
                 if from_host.virus == 0 or not run_method(self, instruction):
                     return edges[len(edges)-1]
                 elif run_method(self, instruction):
-                    from_host.setVirus(from_host.virus-1)
+                    from_host.set_virus(from_host.virus-1)
                     edge_weight = h_edge.weight
-                    to_host.setVirus(to_host.virus + (edge_weight * self.virus_transmission))
+                    to_host.set_virus(to_host.virus + (edge_weight * self.virus_transmission))
                     return edges[0]
             except KeyError:
                 print("Check the format of the instruction's condition -> " + instruction)

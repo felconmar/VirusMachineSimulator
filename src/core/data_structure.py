@@ -20,7 +20,7 @@ class Host():
     def __str__(self):
         return f'Host({self.id}, virus:{self.virus})'
 
-    def setVirus(self, virus):
+    def set_virus(self, virus):
         self.virus = virus
 
 

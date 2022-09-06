@@ -1,32 +1,34 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
+from kivy.properties import StringProperty
 from src.core.problem_scheme import *
 import matplotlib.pyplot as plt
 import networkx as nx
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivy  #https://stackoverflow.com/questions/54758416/how-to-fix-modulenotfounderror-kivy-garden-matplotlib-backend-kivyagg
 from kivy.uix.image import Image
-
+import ntpath
 
 class Window(GridLayout):
     pass
 
 class Machine(GridLayout):
-
-    def run(self, path):
+    PATH = StringProperty('')
+    def run(self):
         try:
-            json = open(path)
+            json = open(self.PATH)
             pr = Problem.json_decode_f(json)
             pr.run_iterative()
             virus = pr.virus_in_environment()
             self.ids.solution.text = str(virus)
         except:
             self.ids.solution.text = "ERROR"
-        
+    
     def selected(self, filename):
         self.ids.graph.clear_widgets()
         try:
             #Json path
-            self.ids.filepath.text = filename[0]
+            self.PATH = filename[0]
+            self.ids.filepath.text = ntpath.basename(filename[0])
             plt.close()
             #Graph design
             g = nx.MultiDiGraph()
