@@ -56,7 +56,7 @@ class Machine(GridLayout):
             #nx.draw_networkx_edges(g, pos, edgelist=edges_aux, arrows=True)
             pos = nx.nx_pydot.graphviz_layout(g, prog='neato')   #‘dot’, ‘twopi’, ‘fdp’, ‘sfdp’, ‘circo’
             nx.draw(g, pos, with_labels= True)
-            nx.draw_networkx_nodes(g, pos, nodelist=hosts_array, node_shape="s", node_color="blue", **options)
+            nx.draw_networkx_nodes(g, pos, nodelist=hosts_array, node_shape="s", node_color="#b2ffff", **options)
             nx.draw_networkx_nodes(g, pos, nodelist=instructions_array, node_color="red", **options)
             nx.draw_networkx_nodes(g, pos, nodelist=controller_edges, node_color="white", node_size=350, label="")
             nx.draw_networkx_edges(g, pos, edgelist=g.edges(), arrows=True)
