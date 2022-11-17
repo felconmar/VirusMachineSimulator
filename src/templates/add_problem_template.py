@@ -38,10 +38,10 @@ pr1_encode = pr1.json_dump()
 print("JSON dump\n", pr1_encode)
 
 #pr1_copy = Problem.json_decode(pr1_encode)
-#pr1_copy.run()
+#pr1_copy.run_iterative()
 #print(pr1_copy.virus_in_environment())
 
 #add_json = open("src/json/in/add.json")
 #pr1_f_copy = Problem.json_decode_f(add_json)
-#pr1_f_copy.run()
+#pr1_f_copy.run_iterative()
 #print(pr1_f_copy.virus_in_environment())
